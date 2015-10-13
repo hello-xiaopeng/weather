@@ -33,9 +33,10 @@ public class AutoUpdateService extends Service {
 
 		AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
 		int anHour = 8 * 60 * 60 * 1000;// 这是八小时的毫秒数
+//		int anHour = 1000;
 		long triggerAtTime = SystemClock.elapsedRealtime()+anHour;
 		Intent in = new Intent(this,AutoUpdateReceiver.class);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, in, 0);
 		manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pendingIntent);
 		
 		return super.onStartCommand(intent, flags, startId);
@@ -51,6 +52,7 @@ public class AutoUpdateService extends Service {
 		String weaterCode = sp.getString("weaterCode", "");
 		String address = "http://www.weather.com.cn/data/cityinfo/"
 				+ weaterCode + ".html";
+		System.out.println("后台自动刷新"+address);
 		HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
 
 			@Override

@@ -13,6 +13,7 @@ public class AutoUpdateReceiver extends BroadcastReceiver {
 		//八小时之后执行此方法
 		Intent i = new Intent(context,AutoUpdateService.class);
 		context.startService(i);
+		System.out.println("onReceive执行了");
 	}
 
 }
